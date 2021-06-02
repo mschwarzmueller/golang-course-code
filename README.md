@@ -4,7 +4,7 @@ This code repository holds code snapshots for my complete [Golang - The Practica
 
 # How To Use
 
-The different [branches](./branches) in this repository reflect the different course sections - every course section has a corresponsing branch that contains the source code snapshots (and other resources) for that branch.
+The different [branches](https://github.com/mschwarzmueller/golang-course-code/branches) in this repository reflect the different course sections - every course section has a corresponsing branch that contains the source code snapshots (and other resources) for that branch.
 
 Inside the branches, you find various resources that belong to the corresponding course section:
 
