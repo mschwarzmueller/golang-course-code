@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"runtime"
 	"strings"
 )
 
@@ -50,7 +51,11 @@ func getUserChoice() (string, error) {
 		return "", err
 	}
 
-	userInput = strings.Replace(userInput, "\n", "", -1)
+	if runtime.GOOS == "windows" {
+		userInput = strings.Replace(userInput, "\r\n", "", -1)
+	} else {
+		userInput = strings.Replace(userInput, "\n", "", -1)
+	}
 
 	if userInput == "1" ||
 		userInput == "2" ||

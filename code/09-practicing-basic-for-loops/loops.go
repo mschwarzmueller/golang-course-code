@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 )
@@ -78,7 +79,11 @@ func getInputNumber() (int, error) {
 		return 0, err
 	}
 
-	inputNumber = strings.Replace(inputNumber, "\n", "", -1)
+	if runtime.GOOS == "windows" {
+		inputNumber = strings.Replace(inputNumber, "\r\n", "", -1)
+	} else {
+		inputNumber = strings.Replace(inputNumber, "\n", "", -1)
+	}
 	chosenNumber, err := strconv.ParseInt(inputNumber, 0, 64)
 
 	if err != nil {
@@ -102,7 +107,11 @@ func getUserChoice() (string, error) {
 		return "", err
 	}
 
-	userInput = strings.Replace(userInput, "\n", "", -1)
+	if runtime.GOOS == "windows" {
+		userInput = strings.Replace(userInput, "\r\n", "", -1)
+	} else {
+		userInput = strings.Replace(userInput, "\n", "", -1)
+	}
 
 	if userInput == "1" ||
 		userInput == "2" ||

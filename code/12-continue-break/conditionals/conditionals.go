@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 )
@@ -36,7 +37,11 @@ func getUserAge() (int, error) {
 
 	fmt.Print("Please enter your age: ")
 	userAgeInput, _ := reader.ReadString('\n')
-	userAgeInput = strings.Replace(userAgeInput, "\n", "", -1)
+	if runtime.GOOS == "windows" {
+		userAgeInput = strings.Replace(userAgeInput, "\r\n", "", -1)
+	} else {
+		userAgeInput = strings.Replace(userAgeInput, "\n", "", -1)
+	}
 	userAge, err := strconv.ParseInt(userAgeInput, 0, 64)
 
 	return int(userAge), err
