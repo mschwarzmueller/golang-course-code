@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 
@@ -23,7 +24,11 @@ func getUserInput(promptText string) (value float64) {
 	fmt.Print(promptText)
 
 	userInput, _ := reader.ReadString('\n')
-	userInput = strings.Replace(userInput, "\n", "", -1)
+	if runtime.GOOS == "windows" {
+		userInput = strings.Replace(userInput, "\r\n", "", -1)
+	} else {
+		userInput = strings.Replace(userInput, "\n", "", -1)
+	}
 	value, _ = strconv.ParseFloat(userInput, 64)
 
 	return

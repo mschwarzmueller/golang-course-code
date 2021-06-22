@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 
@@ -19,8 +20,13 @@ func getUserMetrics() (weight float64, height float64) {
 	fmt.Print(info.HeightPrompt)
 	heightInput, _ := reader.ReadString('\n')
 
-	weightInput = strings.Replace(weightInput, "\n", "", -1)
-	heightInput = strings.Replace(heightInput, "\n", "", -1)
+	if runtime.GOOS == "windows" {
+		weightInput = strings.Replace(weightInput, "\r\n", "", -1)
+		heightInput = strings.Replace(heightInput, "\r\n", "", -1)
+	} else {
+		weightInput = strings.Replace(weightInput, "\n", "", -1)
+		heightInput = strings.Replace(heightInput, "\n", "", -1)
+	}
 
 	weight, _ = strconv.ParseFloat(weightInput, 64)
 	height, _ = strconv.ParseFloat(heightInput, 64)
