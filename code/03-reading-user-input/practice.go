@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"runtime"
 	"strconv"
 	"strings"
 )
@@ -53,7 +54,12 @@ func getProduct() *Product {
 func readUserInput(reader *bufio.Reader, promptText string) string {
 	fmt.Print(promptText)
 	userInput, _ := reader.ReadString('\n')
-	userInput = strings.Replace(userInput, "\n", "", -1)
+
+	if runtime.GOOS == "windows" {
+		userInput = strings.Replace(userInput, "\r\n", "", -1)
+	} else {
+		userInput = strings.Replace(userInput, "\n", "", -1)
+	}
 
 	return userInput
 }
