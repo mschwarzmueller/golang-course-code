@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -41,7 +42,12 @@ func getUserData(promptText string) string {
 	fmt.Print(promptText)
 	userInput, _ := reader.ReadString('\n')
 
-	cleanedInput := strings.Replace(userInput, "\n", "", -1)
+	var cleanedInput string;
 
+	if runtime.GOOS == "windows" {
+		cleanedInput = strings.Replace(userInput, "\r\n", "", -1)
+	} else {
+		cleanedInput = strings.Replace(userInput, "\n", "", -1)
+	}
 	return cleanedInput
 }
